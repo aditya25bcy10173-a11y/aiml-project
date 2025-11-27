@@ -1,0 +1,44 @@
+1. Project Overview
+This project implements a deductive reasoning system using the Prolog programming language. The goal is to solve a fictional murder mystery involving Dr. Black by modeling character relationships, activities, and evidence as facts and rules within a knowledge base. The system allows an investigator to query this knowledge base to systematically narrow down potential suspects and ultimately identify the murderer based on specific logical criteria.
+2. Technical Implementation
+The system is built entirely within a single Prolog file using a declarative programming paradigm.
+2.1. Knowledge Representation (Facts)
+Static information about the scenario is represented using ground predicates (facts).
+Predicate	Arity	Description	Examples
+man / woman	1	Defines character genders.	man(dr_black).
+victim	1	Identifies the deceased.	victim(dr_black).
+stay_in	2	Maps characters to rooms.	stay_in(miss_scarlett, room_21).
+owns_revolver	1	Identifies who legally owns a weapon.	owns_revolver(reverend_green).
+Various activities	1	Tracks hobbies/actions (e.g., smoker, gardening).	smoker(mrs_white).
+2.2. Logic and Rules (Deductive Rules)
+Deductive rules use logical inference (:- meaning "if") to derive new information from existing facts.
+Rule Head	Description	Key Prolog Features Used
+suspect(X)	A person is a suspect if they are a man or a woman and not the victim.	Unification, logical OR (;), negation (\+)
+has_alibi(X)	A suspect has an alibi if they were playing cards.	Conjunction (,)
+share_room(X, Y)	Two distinct individuals share a room if they are both listed as staying in the same room R.	Variable binding, inequality (\=)
+revolver_access(X)	Access is granted by ownership or sharing a room with an owner.	Logical OR (;), conjunction (,)
+guilty(X)	(The final deduction rule) Defines the murderer based on the intersection of several criteria.	Conjunction (,), negation (\+)
+3. Methodology and Problem Solving
+The investigation proceeds in structured steps, using the power of constraint satisfaction inherent in Prolog:
+Identify the Suspect Pool: An initial query ?- suspect(X). establishes the boundary of the investigation, excluding the victim.
+Filter by Evidence (Guilt Condition): The specific evidence gathered at the crime scene (muddy footprints, no alibi, access to a specific weapon type) is translated directly into a single, complex logic rule:
+prolog
+guilty(X) :- 
+    suspect(X), 
+    went_outside(X), 
+    \+ has_alibi(X), 
+    revolver_access(X).
+Use code with caution.
+
+This rule acts as a filter, allowing only individuals who satisfy all necessary conditions to match the guilty(X) predicate.
+4. Results and Conclusion
+By loading the knowledge base into a Prolog interpreter (like SWI-Prolog) and executing the final query:
+prolog
+?- guilty(X).
+Use code with caution.
+
+The system logically processes all facts and rules simultaneously. The expected output would be the name(s) of the character(s) who satisfy every condition specified in the guilty rule.
+This project successfully demonstrates how logic programming can be used to manage structured data and solve complex, constraint-based problems efficiently, mimicking the process of a structured criminal investigation.
+
+
+
