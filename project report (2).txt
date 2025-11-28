@@ -1,0 +1,121 @@
+Project Report: Password Strength Checker
+1. Introduction
+In today’s digital world, passwords are the most common method of authentication. Weak passwords are vulnerable to attacks such as brute force, dictionary attacks, and phishing. This project aims to develop a simple Python-based tool that evaluates the strength of a password based on multiple criteria and provides feedback to the user.
+
+2. Objectives
+To design a program that checks password strength.
+
+To ensure the password meets basic security requirements (length, character diversity).
+
+To provide real-time feedback to users for improving their passwords.
+
+To classify passwords into Weak, Medium, or Strong categories.
+
+3. Methodology
+The project uses Python’s built-in string handling functions to analyze the password. The methodology includes:
+
+Input Handling: User enters a password via the console.
+
+Validation Checks:
+
+Minimum length of 8 characters
+
+Presence of lowercase letters
+
+Presence of uppercase letters
+
+Presence of digits
+
+Presence of special characters (~!@#$%^&*()_-+={}[]|\;'<>,.?/)
+
+Strength Calculation: Each satisfied condition increases the strength score.
+
+Classification:
+
+Score ≤ 2 → Weak
+
+Score = 3 or 4 → Medium
+
+Score = 5 → Strong
+
+4. Implementation
+The program is implemented in Python. Below is the core logic:
+
+python
+pswd = input("Enter your password:")
+strength = 0
+
+# Length check
+if len(pswd) >= 8:
+    strength += 1
+else:
+    print("Password atleast have 8 characters")
+
+# Lowercase check
+if any(ch.islower() for ch in pswd):
+    strength += 1
+else:
+    print("Add minimum one lowercase letter.")
+
+# Uppercase check
+if any(ch.isupper() for ch in pswd):
+    strength += 1
+else:
+    print("Add minimum one uppercase letter.")
+
+# Digit check
+if any(ch.isdigit() for ch in pswd):
+    strength += 1
+else:
+    print("Add at least one number.")
+
+# Special character check
+special = "~!@#$%^&*()_-+={}[]|\\;'<>,.?/"
+if any(ch in special for ch in pswd):
+    strength += 1
+else:
+    print("Add one special character.")
+
+# Final result
+if strength <= 2:
+    print("Password Strength is WEAK")
+elif strength == 3 or strength == 4:
+    print("Password Strength is MEDIUM")
+else:
+    print("Password Strength is STRONG")
+5. Results
+Example 1
+Input: abc123
+
+Output:
+
+Code
+Password atleast have 8 characters
+Add minimum one uppercase letter.
+Add one special character.
+Password Strength is WEAK
+Example 2
+Input: SecurePass1
+
+Output:
+
+Code
+Add one special character.
+Password Strength is MEDIUM
+Example 3
+Input: StrongPass1!
+
+Output:
+
+Code
+Password Strength is STRONG
+6. Conclusion
+The project successfully demonstrates a simple yet effective way to evaluate password strength. While it covers basic rules, future improvements could include:
+
+Checking against common dictionary words.
+
+Using entropy-based calculations for more accurate strength measurement.
+
+Integrating with GUI or web applications for broader usability.
+
+
